@@ -1,0 +1,31 @@
+{
+  "ver": "2.2.0",
+  "uuid": "ccdfaa95-321e-4094-a370-841a0bb44805",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "subMetas": {
+    "giethoorn": {
+      "ver": "1.0.3",
+      "uuid": "bb96695a-8c25-4d85-8774-cb401445b715",
+      "rawTextureUuid": "ccdfaa95-321e-4094-a370-841a0bb44805",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 1024,
+      "height": 512,
+      "rawWidth": 1024,
+      "rawHeight": 512,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

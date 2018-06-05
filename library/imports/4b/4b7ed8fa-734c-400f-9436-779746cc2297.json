@@ -1,0 +1,22 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "giethoorn copy",
+    "texture": "7c33da9e-d0bb-472c-840d-9808558bd136",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      2048,
+      1024
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      2048,
+      1024
+    ]
+  }
+}
