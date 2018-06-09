@@ -32,7 +32,7 @@ function RainMaterial() {
     this._effect = this.effect = new renderer.Effect([mainTech], {
         'iResolution': this._resolution,
         'texSize': this._texSize
-    }, []);
+    }, [{ name: 'HAS_HEART', value: true }, { name: 'USE_POST_PROCESSING', value: true }]);
 
     this._mainTech = mainTech;
 }
@@ -65,6 +65,12 @@ cc.js.mixin(RainMaterial.prototype, {
     setTime: function setTime(time) {
         this._time = time;
         this.effect.setProperty('iTime', this._time);
+    },
+    setHasHeart: function setHasHeart(value) {
+        this.effect.define('HAS_HEART', !!value);
+    },
+    usePostProcessing: function usePostProcessing(value) {
+        this.effect.define('USE_POST_PROCESSING', !!value);
     }
 });
 
