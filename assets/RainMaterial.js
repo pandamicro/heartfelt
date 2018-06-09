@@ -14,23 +14,23 @@ function RainMaterial () {
     pass.setDepth(false, false);
     pass.setCullMode(gfx.CULL_NONE);
     pass.setBlend(
-      gfx.BLEND_FUNC_ADD,
-      gfx.BLEND_SRC_ALPHA, gfx.BLEND_ONE_MINUS_SRC_ALPHA,
-      gfx.BLEND_FUNC_ADD,
-      gfx.BLEND_SRC_ALPHA, gfx.BLEND_ONE_MINUS_SRC_ALPHA
+        gfx.BLEND_FUNC_ADD,
+        gfx.BLEND_SRC_ALPHA, gfx.BLEND_ONE_MINUS_SRC_ALPHA,
+        gfx.BLEND_FUNC_ADD,
+        gfx.BLEND_SRC_ALPHA, gfx.BLEND_ONE_MINUS_SRC_ALPHA
     );
 
     let mainTech = new renderer.Technique(
-      ['transparent'],
-      [
-        { name: 'iTexture', type: renderer.PARAM_TEXTURE_2D },
-        { name: 'texSize', type: renderer.PARAM_FLOAT2 },
-        { name: 'iResolution', type: renderer.PARAM_FLOAT3 },
-        { name: 'iTime', type: renderer.PARAM_FLOAT },
-      ],
-      [
-        pass
-      ]
+        ['transparent'],
+        [
+            { name: 'iTexture', type: renderer.PARAM_TEXTURE_2D },
+            { name: 'texSize', type: renderer.PARAM_FLOAT2 },
+            { name: 'iResolution', type: renderer.PARAM_FLOAT3 },
+            { name: 'iTime', type: renderer.PARAM_FLOAT },
+        ],
+        [
+            pass
+        ]
     );
 
     this._texture = null;
@@ -40,14 +40,17 @@ function RainMaterial () {
 
     // need _effect to calculate hash
     this._effect = this.effect = new renderer.Effect(
-      [
-        mainTech,
-      ],
-      {
-          'iResolution': this._resolution,
-          'texSize': this._texSize
-      },
-      []
+        [
+            mainTech,
+        ],
+        {
+            'iResolution': this._resolution,
+            'texSize': this._texSize
+        },
+        [
+            { name: 'HAS_HEART', value: true },
+            { name: 'USE_POST_PROCESSING', value: true }
+        ]
     );
     
     this._mainTech = mainTech;
@@ -84,6 +87,14 @@ cc.js.mixin(RainMaterial.prototype, {
     setTime (time) {
         this._time = time;
         this.effect.setProperty('iTime', this._time);
+    },
+
+    setHasHeart (value) {
+        this.effect.define('HAS_HEART', !!value);
+    },
+
+    usePostProcessing (value) {
+        this.effect.define('USE_POST_PROCESSING', !!value);
     }
 });
 

@@ -44,8 +44,6 @@ void main () {
 
 #define S(a, b, t) smoothstep(a, b, t)
 //#define CHEAP_NORMALS
-#define HAS_HEART
-#define USE_POST_PROCESSING
 
 uniform sampler2D iTexture;
 uniform vec3 iResolution;
