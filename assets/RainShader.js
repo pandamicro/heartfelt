@@ -242,6 +242,8 @@ void main()
     
 };
 
-cc.renderer._forward._programLib.define(shader.name, shader.vert, shader.frag, shader.defines);
+cc.game.once(cc.game.EVENT_ENGINE_INITED, function () {
+    cc.renderer._forward._programLib.define(shader.name, shader.vert, shader.frag, shader.defines);
+});
 
 module.exports = shader;
