@@ -1,11 +1,11 @@
 const math = cc.vmath;
-var renderEngine;
-var renderer;
-var gfx;
-var Material;
+const renderEngine = cc.renderer.renderEngine;
+const renderer = renderEngine.renderer;
+const gfx = renderEngine.gfx;
+const Material = renderEngine.Material;
 
 // Require to load the shader to program lib
-const RainShader = require('RainShader');
+require('RainShader');
 
 function RainMaterial () {
     Material.call(this, false);
@@ -55,54 +55,46 @@ function RainMaterial () {
     
     this._mainTech = mainTech;
 }
+cc.js.extend(RainMaterial, Material);
+cc.js.mixin(RainMaterial.prototype, {
+    getTexture () {
+        return this._texture;
+    },
 
-cc.game.once(cc.game.EVENT_ENGINE_INITED, function () {
-    renderEngine = cc.renderer.renderEngine;
-    renderer = renderEngine.renderer;
-    gfx = renderEngine.gfx;
-    Material = renderEngine.Material;
+    setTexture (val) {
+        if (this._texture !== val) {
+            this._texture = val;
+            this._texture.update({
+                // Adapt to shader
+                flipY: true,
+                // For load texture
+                mipmap: true
+            });
+            this.effect.setProperty('iTexture', val.getImpl());
+            this._texIds['iTexture'] = val.getId();
 
-    cc.js.extend(RainMaterial, Material);
-    cc.js.mixin(RainMaterial.prototype, {
-        getTexture () {
-            return this._texture;
-        },
-
-        setTexture (val) {
-            if (this._texture !== val) {
-                this._texture = val;
-                this._texture.update({
-                    // Adapt to shader
-                    flipY: true,
-                    // For load texture
-                    mipmap: true
-                });
-                this.effect.setProperty('iTexture', val.getImpl());
-                this._texIds['iTexture'] = val.getId();
-
-                this._texSize.x = this._texture.width;
-                this._texSize.y = this._texture.height;
-            }
-        },
-        
-        setResolution (w, h) {
-            this._resolution.x = w;
-            this._resolution.y = h;
-        },
-
-        setTime (time) {
-            this._time = time;
-            this.effect.setProperty('iTime', this._time);
-        },
-
-        setHasHeart (value) {
-            this.effect.define('HAS_HEART', !!value);
-        },
-
-        usePostProcessing (value) {
-            this.effect.define('USE_POST_PROCESSING', !!value);
+            this._texSize.x = this._texture.width;
+            this._texSize.y = this._texture.height;
         }
-    });
+    },
+    
+    setResolution (w, h) {
+        this._resolution.x = w;
+        this._resolution.y = h;
+    },
+
+    setTime (time) {
+        this._time = time;
+        this.effect.setProperty('iTime', this._time);
+    },
+
+    setHasHeart (value) {
+        this.effect.define('HAS_HEART', !!value);
+    },
+
+    usePostProcessing (value) {
+        this.effect.define('USE_POST_PROCESSING', !!value);
+    }
 });
 
 module.exports = RainMaterial;
